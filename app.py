@@ -28,6 +28,19 @@ def application():
     name = request.args['name']
     return render_template('application.html', name=name)
 
+# @app.route("/verification", methods=['GET', 'POST'])
+# def verification():
+#     if request.method == "POST":
+
+# @app.route("/correct", methods=['GET', 'POST'])
+# def correct():
+#     if request.method == "POST":
+
+# @app.route("/sync" , methods=['GET', 'POST'])
+# def sync():
+
+# @app.route("/exit" , methods=['GET','POST'])
+# def exit():
 
 # url = "http://localhost/average"
 
@@ -37,5 +50,7 @@ def application():
 # response = requests.request("POST", url, files=files)
 # print("Response received")
 # open('model1.pt', 'wb').write(response.content)
+
+
 if __name__ == '__main__':
     app.run(debug=True)
