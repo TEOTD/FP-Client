@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="limiter">
+    <div class="container-login100" style="background-image: url('{{ url_for('static', filename='images/bg-01.jpg')}}');">
+        <div class="wrap-login100">
+            <form method="POST" action="{{ url_for("login")}}" class="login100-form validate-form" >
+                
+                Test Image 
+
+                Output
+
+                <div class="container-login100-form-btn">
+                    <button class="login100-form-btn" >
+                        Wrong Digagonsis
+                    </button>
+                </div>
+
+                <div class="container-login100-form-btn">
+                    <button class="login100-form-btn" >
+                        Continue
+                    </button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}
