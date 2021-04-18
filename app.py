@@ -21,11 +21,11 @@ def login():
 
 @app.route("/application", methods=['GET', 'POST'])
 def application():
+    name = request.args['name']
     if request.method == 'POST':
         f = request.files['file']
         f.save(os.path.join(app.config['UPLOAD_FOLDER'], f.filename))
-        return "UPLOAD SUCESSFULL"
-    name = request.args['name']
+        return (f.filename)
     return render_template('application.html', name=name)
 
 # @app.route("/verification", methods=['GET', 'POST'])

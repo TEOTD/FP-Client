@@ -82,5 +82,28 @@
         
     });
 
-
 })(jQuery);
+
+$(document).ready(function() {
+    $("#testButton").click(function() {
+        var formData = new FormData();
+        var images = $("#inputImage")[0].files;
+
+        if(files.length > 0) {
+            formData.append('image', images[0]);
+
+            $.ajax({
+                url: 'test',
+                type: 'post',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(response) {
+                    $("#testResult").html(response.result);
+                    $("#testResultContainer").removeAttr("hidden");
+                }
+            })
+        }
+
+    });
+});
