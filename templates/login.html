@@ -5,7 +5,16 @@
         <div class="wrap-login100">
             <form method="POST" action="{{ url_for("login")}}" class="login100-form validate-form" >
                 <span class="login100-form-logo">
-                    <i class="zmdi zmdi-landscape"></i>
+                    <div class="profile-images" style="width: 100px;
+                    height: 100px;
+                    background: #fff;
+                    border-radius: 50%;
+                    overflow: hidden;">
+                        <img src="{{ url_for('static', filename='images/profile.png')}}" id="upload-img"
+                        style="	width: 100%;
+                        height: 100%;
+                        object-fit: cover;">
+                    </div>                    
                 </span>
 
                 <span class="login100-form-title p-b-34 p-t-27">

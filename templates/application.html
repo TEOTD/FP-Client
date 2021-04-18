@@ -1,56 +1,83 @@
 {% extends "layout.html" %}
 {% block content %}
-<div class="limiter">
-    <div class="container-login100" style="background-image: url('{{ url_for('static', filename='images/bg-01.jpg')}}');">
-        <div class="wrap-login100">
-               <span class="login100-form-logo">
-                    <i class="zmdi zmdi-landscape"></i>
-                </span>
-
-                <span class="login100-form-title p-b-34 p-t-27">
-                    WELCOME {{ name }}
-                </span>
-
-                <div class="wrap-input100 validate-input" data-validate = "Enter Name">
-                    <input type = "file" name = "file" id="inputImage">
+<div class="limiter">    
+        <div class="container-login100" 
+        style="background-image: url('{{ url_for('static', filename='images/bg-01.jpg')}}');"
+        id="backgroundimage">
+    
+            <div class="wrap-login100">
+                   <span class="login100-form-logo">
+                        <div class="profile-images" style="width: 100px;
+                        height: 100px;
+                        background: #fff;
+                        border-radius: 50%;
+                        overflow: hidden;">
+                            <img src="{{ url_for('static', filename='images/profile.png')}}" id="upload-img"
+                            style="	width: 100%;
+                            height: 100%;
+                            object-fit: cover;">
+                        </div>                    
+                    </span>
+    
+                    <span class="login100-form-title p-b-34 p-t-27">
+                        WELCOME {{ name }}
+                    </span>
+    
+                    <div class="wrap-input100 validate-input" data-validate = "Enter Name">
+                        <input type = "file" name = "file" id="inputImage">
+                    </div>
+    
+                    <div class="container-login100-form-btn">
+                        <button class="login100-form-btn" id="testButton">
+                            Test
+                        </button>
+                    </div>
+                    <div class="test-result" id="testResultContainer" hidden>
+                        <div class="test-result_1" style="text-align: center;
+                        background-color:#fff;
+                        margin:3rem;
+                        padding:3rem;
+                        ">
+                        <span>Result: </span>
+                        <span id="testResult"></span>
+                        </div>                    
+                    </div>
+                    <div class="container-login100-form-btn" id="validationContainer" hidden>
+                        <button class="login100-form-btn" id="validateButton">
+                            Validate
+                        </button>
+                    </div>
+                    <div class="test-result" id="validateLossContainer" hidden>
+                        <div class="test-result_1" style="text-align: center;
+                        background-color:#fff;
+                        margin:3rem;
+                        padding:3rem;
+                        ">
+                        <span>Loss: </span>
+                        <span id="validateLoss"></span>
+                        </div>
+                    </div>
+                    <br>
+                    <div>
+                    <span class="container-login100-form-btn">
+                        <button class="login100-form-btn" id="syncButton">
+                            Syncronize Models
+                        </button>
+                    </span>
+                    <p id="loading" style="text-align: center;
+                    background-color:#fff;
+                    margin:3rem;
+                    padding:3rem;
+                    " hidden>Loading....</p>
+                    <p id="synchronised" style="text-align: center;
+                        background-color:#fff;
+                        margin:3rem;
+                        padding:3rem;
+                        "hidden>Synchronised</p>
+                    <br>
                 </div>
-
-                <div class="container-login100-form-btn">
-                    <button class="login100-form-btn" id="testButton">
-                        Test
-                    </button>
-                </div>
-                <div class="test-result" id="testResultContainer" hidden>
-                    <span>Result: </span>
-                    <span id="testResult"></span>
-                </div>
-                <div class="container-login100-form-btn" id="validationContainer" hidden>
-                    <button class="login100-form-btn" id="validateButton">
-                        Validate
-                    </button>
-                </div>
-                <div class="test-result" id="validateLossContainer" hidden>
-                    <span>Loss: </span>
-                    <span id="validateLoss"></span>
-                </div>
-                <br>
-                <div>
-                <span class="container-login100-form-btn">
-                    <button class="login100-form-btn" id="syncButton">
-                        Syncronize Models
-                    </button>
-                </span>
-                <p id="loading" hidden>Loading....</p>
-                <p id="synchronised" hidden>Synchronised</p>
-                <br>
-                <span class="container-login100-form-btn">
-                    <button class="login100-form-btn" >
-                        Exit Application
-                    </button>
-                </span>
+    
             </div>
-
-        </div>
-    </div>
+        </div>    
 </div>
 {% endblock content %}

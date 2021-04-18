@@ -38,6 +38,7 @@ $(document).ready(function() {
                     $("#testResultContainer").removeAttr("hidden");
                     $("#validationContainer").removeAttr("hidden");
                 }
+                
             })
         }
     });
