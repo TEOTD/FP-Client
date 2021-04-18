@@ -58,5 +58,22 @@ def validate():
 
     return {'loss': loss}
 
+@app.route('/sync', methods=['GET'])
+def sync():
+    url = "http://localhost:8000/average"
+
+    payload={'name': request.args['name']}
+    files=[
+      ('model',('model.pt',open(weightsPath,'rb'),'application/octet-stream'))
+    ]
+
+    response = requests.request("POST", url, files=files, data=payload)
+    
+    if(response.status_code == 200):
+        print("Response received")
+        open(weightsPath, 'wb').write(response.content)
+
+    return ""
+
 if __name__ == '__main__':
     app.run(debug=True)
