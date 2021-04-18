@@ -19,9 +19,9 @@
   
     /*==================================================================
     [ Validate ]*/
-    var input = $('.validate-input .input100');
+    /*var input = $('.validate-input .input100');
 
-     $('.validate-form').on('submit',function(){
+     /*$('.validate-form').on('submit',function(){
          var check = true;
 
          for(var i=0; i<input.length; i++) {
@@ -32,10 +32,10 @@
          }
 
          return check;
-     });
+     });*/
 
 
-     $('.validate-form .input100').each(function(){
+     /*$('.validate-form .input100').each(function(){
          $(this).focus(function(){
             hideValidate(this);
          });
@@ -67,7 +67,7 @@
     
     /*==================================================================
     [ Show pass ]*/
-    var showPass = 0;
+    /*var showPass = 0;
     $('.btn-show-pass').on('click', function(){
         if(showPass == 0) {
             $(this).next('input').attr('type','text');
@@ -80,7 +80,7 @@
             showPass = 0;
         }
         
-    });
+    });*/
 
 })(jQuery);
 
@@ -89,14 +89,16 @@ $(document).ready(function() {
         var formData = new FormData();
         var images = $("#inputImage")[0].files;
 
-        if(files.length > 0) {
+        if(images.length > 0) {
+            formData.append('name', window.location.search.substring(1).split("=")[1])
             formData.append('image', images[0]);
 
             $.ajax({
-                url: 'test',
+                url: '/test',
                 type: 'post',
                 data: formData,
                 contentType: false,
+                        cache: false,
                 processData: false,
                 success: function(response) {
                     $("#testResult").html(response.result);
@@ -106,4 +108,8 @@ $(document).ready(function() {
         }
 
     });
+
+   $("#inputImage").change(function () {
+        $("#testResultContainer").attr("hidden", "true");
+    })
 });
