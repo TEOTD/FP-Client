@@ -88,28 +88,52 @@ $(document).ready(function() {
     $("#testButton").click(function() {
         var formData = new FormData();
         var images = $("#inputImage")[0].files;
-
+        
         if(images.length > 0) {
-            formData.append('name', window.location.search.substring(1).split("=")[1])
             formData.append('image', images[0]);
-
+            
             $.ajax({
                 url: '/test',
                 type: 'post',
                 data: formData,
                 contentType: false,
-                        cache: false,
+                cache: false,
                 processData: false,
                 success: function(response) {
                     $("#testResult").html(response.result);
                     $("#testResultContainer").removeAttr("hidden");
+                    $("#validationContainer").removeAttr("hidden");
                 }
             })
         }
+    });
 
+    $("#validateButton").click(function() {
+        var formData = new FormData();
+        var images = $("#inputImage")[0].files;
+        var classes = {"infected": 0, "uninfected": 1};
+        if(images.length > 0) {
+            formData.append('image', images[0]);
+            formData.append('result', classes[$('#testResult').text()]);
+
+            $.ajax({
+                url: '/validate',
+                type: 'post',
+                data: formData,
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function(response) {
+                    $("#validateLoss").html(response.loss);
+                    $("#validateLossContainer").removeAttr("hidden");
+                }
+            })
+        }
     });
 
    $("#inputImage").change(function () {
         $("#testResultContainer").attr("hidden", "true");
+        $("#validationContainer").attr("hidden", "true");
+        $("#validateLossContainer").attr("hidden", "true");
     })
 });

@@ -1,6 +1,12 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+from torchvision import transforms
+from PIL import Image
+from io import BytesIO
+import os
+
+weightsPath = os.path.join('static', os.path.join('weights', 'model.pt'))
 
 class MosquitoNet(nn.Module):
     
@@ -46,13 +52,47 @@ class MosquitoNet(nn.Module):
         out = self.drop(out)
         out = self.fc3(out)
         
-        return out        
+        return out 
 
+def transform_image(image_bytes):
+    my_transforms = transforms.Compose([transforms.Resize((120, 120)),
+        transforms.ColorJitter(0.05),
+        transforms.RandomHorizontalFlip(),
+        transforms.RandomVerticalFlip(),
+        transforms.RandomRotation(20),
+        transforms.ToTensor(), 
+        transforms.Normalize([0.5, 0.5, 0.5], [0.5, 0.5, 0.5])])
+    image = Image.open(BytesIO(image_bytes))
+    return my_transforms(image).unsqueeze(0)   
 
 def get_model():
-    weights = torch.load(os.path.join('static', os.path.join('weights', 'model.pt')), map_location=torch.device("cpu"))
-
+    weights = torch.load(weightsPath, map_location=torch.device("cpu"))
     model = MosquitoNet()
     model.load_state_dict(weights)
 
     return model
+
+def train_model(image, input_label):
+    print(input_label)
+    model = get_model()
+    label = torch.tensor(input_label, dtype=torch.long)
+    print(label)
+    error = nn.CrossEntropyLoss()
+    learning_rate = 0.001
+    optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
+
+    model.train()
+
+    tensor = transform_image(image_bytes=image)
+
+    optimizer.zero_grad()
+    logps = model.forward(tensor)
+    loss = error(logps, label)
+    loss.backward()
+    optimizer.step()
+
+    print("[Log] train loss", loss.item())
+
+    torch.save(model.state_dict(), weightsPath)
+    
+    return loss.item()
