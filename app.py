@@ -1,6 +1,5 @@
 from flask import Flask, render_template, redirect, request
 from flask.helpers import url_for
-from werkzeug.utils import secure_filename
 import os
 import torch
 from mosquito_net import get_model, transform_image, train_model
@@ -9,10 +8,6 @@ from PIL import Image
 import requests
 
 app = Flask(__name__)
-
-UPLOAD_FOLDER = 'static/images/Testing'
-app.config['SECRET_KEY'] = '5791628bb0b13ce0c676dfde280ba358'
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 weightsPath = os.path.join('static', os.path.join('weights', 'model.pt'))
 classes = ['infected', 'uninfected']
@@ -54,9 +49,9 @@ def validate():
     file = request.files['image']
     image = file.read()
 
-    label = [int(request.form["result"])]
+    label = (int(request.form["result"]) + 1)%2
 
-    loss = train_model(image, label)
+    loss = train_model(image, [label])
 
     return {'loss': loss}
 

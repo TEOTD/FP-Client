@@ -57,9 +57,6 @@ class MosquitoNet(nn.Module):
 def transform_image(image_bytes):
     my_transforms = transforms.Compose([transforms.Resize((120, 120)),
         transforms.ColorJitter(0.05),
-        transforms.RandomHorizontalFlip(),
-        transforms.RandomVerticalFlip(),
-        transforms.RandomRotation(20),
         transforms.ToTensor(), 
         transforms.Normalize([0.5, 0.5, 0.5], [0.5, 0.5, 0.5])])
     image = Image.open(BytesIO(image_bytes))
