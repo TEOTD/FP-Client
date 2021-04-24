@@ -65,8 +65,10 @@ def sync():
         ('model', ('model.pt', open(weightsPath, 'rb'), 'application/octet-stream'))
     ]
 
-    response = requests.request("POST", url, files=files, data=payload)
-
+    try:
+        response = requests.request("POST", url, files=files, data=payload)
+    except:
+        return "", 500
     if(response.status_code == 200):
         print("Response received")
         open(weightsPath, 'wb').write(response.content)

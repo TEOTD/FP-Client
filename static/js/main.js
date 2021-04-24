@@ -77,6 +77,10 @@ $(document).ready(function() {
             success: function(response) {
                 $("#loading").attr("hidden", "true");
                 $("#synchronised").removeAttr("hidden");
+            },
+            error: function(response) {
+                $("#loading").attr("hidden", "true");
+                $("#error").removeAttr("hidden");
             }
         });
     })
