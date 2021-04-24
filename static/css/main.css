@@ -546,11 +546,6 @@ iframe {
   }
 }
 
-.external_class_1 {
-  background-color: green;
+.img-style {
+  display: none;
 }
-.external_class_2{
-  background-color: red;
-}
-
-

@@ -82,10 +82,22 @@ $(document).ready(function() {
     })
 
    $("#inputImage").change(function () {
+       if(this.files && this.files[0]) {
+
+            $("#img").css('display', 'block');
+            var reader = new FileReader();
+
+            reader.onload = (e) => {
+                $("#img").attr("src", e.target.result)
+            };
+
+            reader.readAsDataURL(this.files[0]);
+        }
+
         $("#testResultContainer").attr("hidden", "true");
         $("#validationContainer").attr("hidden", "true");
         $("#validateLossContainer").attr("hidden", "true");
         $("#loading").attr("hidden", "true");
         $("#synchronised").attr("hidden", "true");
-    })
+    });
 });
