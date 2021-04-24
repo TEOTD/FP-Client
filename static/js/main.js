@@ -68,6 +68,7 @@ $(document).ready(function() {
 
     $("#syncButton").click(function() {
         $("#loading").removeAttr("hidden");
+        $("#error").attr("hidden", "true");
         $.ajax({
             url: '/sync',
             type: 'get',
@@ -76,10 +77,12 @@ $(document).ready(function() {
             },
             success: function(response) {
                 $("#loading").attr("hidden", "true");
+                $("#error").attr("hidden", "true");
                 $("#synchronised").removeAttr("hidden");
             },
             error: function(response) {
                 $("#loading").attr("hidden", "true");
+                $("#synchronised").attr("hidden", "true");
                 $("#error").removeAttr("hidden");
             }
         });
